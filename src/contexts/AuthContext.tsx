@@ -130,6 +130,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setLoading(true);
     await supabase.auth.signInWithOAuth({
       provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/`,
+      },
     });
     setLoading(false);
   }, []);
