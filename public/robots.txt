@@ -1,3 +1,6 @@
+# Ramathani - Robots.txt
+# https://ramathani.app
+
 User-agent: Googlebot
 Allow: /
 
@@ -12,3 +15,6 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+# Sitemap
+Sitemap: https://ramathani.app/sitemap.xml

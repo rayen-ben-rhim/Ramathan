@@ -1,4 +1,5 @@
 import { Check } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export interface QuestItem {
   id: string;
@@ -46,6 +47,7 @@ const QuestCard = ({
   onToggle,
   delay = 0,
 }: QuestCardProps) => {
+  const { t } = useTranslation();
   const styles = categoryStyles[category];
 
   const handleClick = (quest: QuestItem) => {
@@ -65,7 +67,7 @@ const QuestCard = ({
 
       {quests.length === 0 ? (
         <p className="text-sm font-body text-muted-foreground">
-          No more quests for today in this path.
+          {t("questCard.noQuests")}
         </p>
       ) : (
         <div className="space-y-3 max-h-64 overflow-y-auto pr-1">

@@ -93,10 +93,11 @@ export function useQuests() {
   }, [user?.id, today]);
 
   const toggleQuest = useCallback(
-    async (questId: string, rewardBp: number, isNowCompleted: boolean) => {
+    async (questId: string, _rewardBp: number, isNowCompleted: boolean) => {
       if (!user) return;
 
       if (isNowCompleted) {
+        // Insert completion - BP update is handled by database trigger
         const { error } = await supabase.from("quest_completions").insert({
           user_id: user.id,
           quest_id: questId,
@@ -106,22 +107,9 @@ export function useQuests() {
           console.error("Error completing quest:", error);
           return;
         }
-        const { data: profile } = await supabase
-          .from("profiles")
-          .select("total_bp")
-          .eq("id", user.id)
-          .single();
-        if (profile) {
-          await supabase
-            .from("profiles")
-            .update({
-              total_bp: (profile.total_bp ?? 0) + rewardBp,
-              last_activity_date: today,
-            })
-            .eq("id", user.id);
-        }
         setCompletedIds((prev) => new Set(prev).add(questId));
       } else {
+        // Delete completion - BP subtraction is handled by database trigger
         const { error } = await supabase
           .from("quest_completions")
           .delete()
@@ -132,26 +120,13 @@ export function useQuests() {
           console.error("Error uncompleting quest:", error);
           return;
         }
-        const { data: profile } = await supabase
-          .from("profiles")
-          .select("total_bp")
-          .eq("id", user.id)
-          .single();
-        if (profile) {
-          await supabase
-            .from("profiles")
-            .update({
-              total_bp: Math.max(0, (profile.total_bp ?? 0) - rewardBp),
-              last_activity_date: today,
-            })
-            .eq("id", user.id);
-        }
         setCompletedIds((prev) => {
           const next = new Set(prev);
           next.delete(questId);
           return next;
         });
       }
+      // Refresh profile to get updated BP from server
       await refreshProfile();
     },
     [user?.id, today, refreshProfile]

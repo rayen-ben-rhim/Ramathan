@@ -1,9 +1,12 @@
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useAuth } from "@/contexts/AuthContext";
 
 const Login = () => {
+  const { t } = useTranslation();
   const { user, loading, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -18,20 +21,23 @@ const Login = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-background grid-texture flex items-center justify-center">
-        <p className="font-body text-muted-foreground">Loading...</p>
+        <p className="font-body text-muted-foreground">{t("common.loading")}</p>
       </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-background grid-texture flex flex-col items-center justify-center px-4">
+      <div className="absolute top-4 end-4">
+        <LanguageSwitcher />
+      </div>
       <div className="text-center mb-10">
         <span className="text-5xl">🌙</span>
         <h1 className="text-3xl sm:text-4xl font-display font-bold text-foreground mt-4">
-          Ramathani
+          {t("login.title")}
         </h1>
         <p className="text-muted-foreground font-body text-sm sm:text-base mt-2 max-w-sm mx-auto">
-          Your spiritual companion for Ramadan. Sign in to track your quests and grow in consistency.
+          {t("login.description")}
         </p>
       </div>
 
@@ -58,7 +64,7 @@ const Login = () => {
             d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
           />
         </svg>
-        Continue with Google
+        {t("login.continueWithGoogle")}
       </Button>
     </div>
   );

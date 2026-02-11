@@ -1,4 +1,5 @@
 import { Navigate, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "@/contexts/AuthContext";
 
 interface ProtectedRouteProps {
@@ -6,13 +7,14 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
+  const { t } = useTranslation();
   const { user, loading } = useAuth();
   const location = useLocation();
 
   if (loading) {
     return (
       <div className="min-h-screen bg-background grid-texture flex items-center justify-center">
-        <p className="font-body text-muted-foreground">Loading...</p>
+        <p className="font-body text-muted-foreground">{t("common.loading")}</p>
       </div>
     );
   }

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import Navbar from "@/components/Navbar";
 import SideMenu from "@/components/SideMenu";
 import { Flame, Crown, Medal, Award } from "lucide-react";
@@ -12,13 +13,14 @@ const getRankIcon = (rank: number) => {
 };
 
 const PathOfConsistency = () => {
+  const { t } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
   const { entries, loading } = useLeaderboard();
 
   const leaderboardData = entries.map((entry, index) => ({
     rank: index + 1,
     name: entry.display_name,
-    title: entry.current_maqam ?? "Traveler",
+    title: entry.current_maqam ?? t("pathOfConsistency.traveler"),
     level: entry.current_level,
     streak: entry.current_streak,
     bp: entry.total_bp,
@@ -35,20 +37,20 @@ const PathOfConsistency = () => {
       <div className="pt-24 pb-16 max-w-3xl mx-auto px-4">
         <div className="text-center mb-10 animate-fade-in-up">
           <h1 className="text-3xl sm:text-4xl font-display font-bold text-foreground mb-2">
-            Path of Consistency
+            {t("pathOfConsistency.title")}
           </h1>
           <p className="text-muted-foreground font-body text-sm sm:text-base">
-            Honour those who walk steadily — not the fastest, but the most devoted.
+            {t("pathOfConsistency.subtitle")}
           </p>
         </div>
 
         {loading ? (
           <p className="text-center text-sm font-body text-muted-foreground animate-fade-in-up" style={{ animationDelay: "150ms" }}>
-            Loading leaderboard...
+            {t("pathOfConsistency.loadingLeaderboard")}
           </p>
         ) : leaderboardData.length === 0 ? (
           <p className="text-center text-sm font-body text-muted-foreground animate-fade-in-up" style={{ animationDelay: "150ms" }}>
-            No participants yet. Be the first to walk the Path of Consistency.
+            {t("pathOfConsistency.noParticipants")}
           </p>
         ) : (
           <>
@@ -99,7 +101,7 @@ const PathOfConsistency = () => {
                   <div className="flex-1 min-w-0">
                     <p className="font-display text-sm font-semibold text-foreground truncate">{user.name}</p>
                     <p className="text-xs text-muted-foreground font-body">
-                      {user.title} · Maqām {user.level}
+                      {user.title} · {t("navbar.maqam")} {user.level}
                     </p>
                   </div>
 
@@ -110,7 +112,7 @@ const PathOfConsistency = () => {
 
                   <div className="text-right shrink-0 hidden sm:block">
                     <span className="text-sm font-display font-semibold text-foreground">{user.bp}</span>
-                    <span className="text-xs text-muted-foreground font-body ml-1">BP</span>
+                    <span className="text-xs text-muted-foreground font-body ml-1">{t("common.bp")}</span>
                   </div>
                 </div>
               ))}
@@ -121,7 +123,7 @@ const PathOfConsistency = () => {
 
       <footer className="border-t border-border/50 py-8 text-center">
         <p className="text-sm text-muted-foreground font-body">
-          🌙 Ramathani — Your spiritual companion for Ramadan
+          🌙 {t("app.name")} — {t("app.tagline")}
         </p>
       </footer>
     </div>

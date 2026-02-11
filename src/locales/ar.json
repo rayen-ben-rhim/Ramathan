@@ -1,0 +1,97 @@
+{
+  "common": {
+    "loading": "جاري التحميل...",
+    "user": "المستخدم",
+    "menu": "القائمة",
+    "logout": "تسجيل الخروج",
+    "home": "الرئيسية",
+    "saving": "جاري الحفظ...",
+    "active": "نشط",
+    "inactive": "غير نشط",
+    "total": "الإجمالي",
+    "title": "العنوان",
+    "category": "التصنيف",
+    "spiritual": "روحي",
+    "mental": "ذهني",
+    "physical": "بدني",
+    "bp": "ن ب",
+    "rewardBp": "نقاط المكافأة",
+    "day": "اليوم"
+  },
+  "app": {
+    "name": "رمضاني",
+    "tagline": "رفيقك الروحي في رمضان"
+  },
+  "login": {
+    "title": "رمضاني",
+    "description": "رفيقك الروحي في رمضان. سجّل الدخول لتتبع مهامك وتنمو في الثبات.",
+    "continueWithGoogle": "المتابعة عبر Google"
+  },
+  "index": {
+    "todaysQuest": "مهمة اليوم",
+    "dayOfRamadan": "اليوم {{day}} من رمضان — ثابر واستمر",
+    "barakahPoints": "نقاط البركة",
+    "maqamOf": "مقام {{maqam}}",
+    "bpToNextMaqam": "{{count}} نقطة بركة إضافية لفتح المقام التالي",
+    "highestMaqam": "لقد وصلت إلى أعلى المقامات. تقبّل الله منك.",
+    "loadingQuests": "جاري تحميل المهام...",
+    "spiritualQuest": "المهمة الروحية",
+    "mentalQuest": "المهمة الذهنية",
+    "physicalQuest": "المهمة البدنية",
+    "todaysReminders": "تذكيرات اليوم",
+    "loadingReminders": "جاري تحميل التذكيرات...",
+    "noReminders": "لا توجد تذكيرات الآن. عد لاحقاً."
+  },
+  "questCard": {
+    "noQuests": "لا مهام إضافية لهذا اليوم في هذا المسار."
+  },
+  "videoCard": {
+    "barakah": "البركة",
+    "watched": "تمت المشاهدة"
+  },
+  "toast": {
+    "mabrook": "مبارك!",
+    "maqamReached": "لقد وصلت إلى مقام {{maqam}}. استمر!",
+    "newStreak": "رقم قياسي جديد!",
+    "streakReached": "لقد وصلت إلى سلسلة {{count}} أيام. استمر!"
+  },
+  "pathOfConsistency": {
+    "title": "درب الثبات",
+    "subtitle": "إكرام من يمشون بثبات — ليس الأسرع، بل الأكثر إخلاصاً.",
+    "loadingLeaderboard": "جاري تحميل لوحة المتصدرين...",
+    "noParticipants": "لا مشاركين بعد. كن أول من يمشي درب الثبات.",
+    "traveler": "المسافر"
+  },
+  "admin": {
+    "login": "تسجيل دخول الأدمن",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "signIn": "تسجيل الدخول",
+    "invalidCredentials": "بيانات الدخول غير صحيحة.",
+    "dashboard": "لوحة تحكم الأدمن",
+    "welcomeBack": "مرحباً بعودتك",
+    "adminEnabled": "تم تفعيل وضع الأدمن.",
+    "quests": "المهام",
+    "loadingQuests": "جاري تحميل المهام...",
+    "noQuests": "لا توجد مهام.",
+    "addQuest": "إضافة مهمة",
+    "questTitle": "عنوان المهمة",
+    "ramadanDayOptional": "يوم رمضان (اختياري)",
+    "videos": "الفيديوهات",
+    "loadingVideos": "جاري تحميل الفيديوهات...",
+    "noVideos": "لا توجد فيديوهات.",
+    "addVideo": "إضافة فيديو",
+    "videoTitle": "عنوان الفيديو",
+    "youtubeId": "معرف YouTube",
+    "duration": "المدة (مثال: 7:30)",
+    "durationPlaceholder": "7:30"
+  },
+  "navbar": {
+    "maqam": "مقام"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "عذراً! الصفحة غير موجودة",
+    "returnHome": "العودة للرئيسية"
+  }
+}

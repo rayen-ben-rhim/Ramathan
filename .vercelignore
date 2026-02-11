@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Local env files
+.env.local
+.env*.local
+
+# Build outputs (Vercel builds fresh)
+dist/
+
+# IDE
+.idea/
+.vscode/
+
+# Supabase local
+supabase/.temp/
+
+# Testing
+coverage/
+
+# Misc
+*.log
+.DS_Store

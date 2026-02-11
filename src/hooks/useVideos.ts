@@ -89,10 +89,11 @@ export function useVideos() {
   }, [user?.id, today]);
 
   const toggleVideo = useCallback(
-    async (videoId: string, rewardBp: number, isNowCompleted: boolean) => {
+    async (videoId: string, _rewardBp: number, isNowCompleted: boolean) => {
       if (!user) return;
 
       if (isNowCompleted) {
+        // Insert completion - BP update is handled by database trigger
         const { error } = await supabase.from("video_completions").insert({
           user_id: user.id,
           video_id: videoId,
@@ -102,22 +103,9 @@ export function useVideos() {
           console.error("Error marking video as watched:", error);
           return;
         }
-        const { data: profile } = await supabase
-          .from("profiles")
-          .select("total_bp")
-          .eq("id", user.id)
-          .single();
-        if (profile) {
-          await supabase
-            .from("profiles")
-            .update({
-              total_bp: (profile.total_bp ?? 0) + rewardBp,
-              last_activity_date: today,
-            })
-            .eq("id", user.id);
-        }
         setCompletedIds((prev) => new Set(prev).add(videoId));
       } else {
+        // Delete completion - BP subtraction is handled by database trigger
         const { error } = await supabase
           .from("video_completions")
           .delete()
@@ -128,26 +116,13 @@ export function useVideos() {
           console.error("Error undoing watched video:", error);
           return;
         }
-        const { data: profile } = await supabase
-          .from("profiles")
-          .select("total_bp")
-          .eq("id", user.id)
-          .single();
-        if (profile) {
-          await supabase
-            .from("profiles")
-            .update({
-              total_bp: Math.max(0, (profile.total_bp ?? 0) - rewardBp),
-              last_activity_date: today,
-            })
-            .eq("id", user.id);
-        }
         setCompletedIds((prev) => {
           const next = new Set(prev);
           next.delete(videoId);
           return next;
         });
       }
+      // Refresh profile to get updated BP from server
       await refreshProfile();
     },
     [user?.id, today, refreshProfile]

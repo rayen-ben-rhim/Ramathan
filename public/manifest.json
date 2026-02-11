@@ -1,0 +1,21 @@
+{
+  "name": "Ramathani - Your Spiritual Journey",
+  "short_name": "Ramathani",
+  "description": "Transform your Ramadan experience with daily quests, inspirational videos, and spiritual growth tracking.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f3ef",
+  "theme_color": "#4a7c59",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["lifestyle", "education", "health"],
+  "lang": "en",
+  "dir": "auto"
+}

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4a7c59"/>
+      <stop offset="100%" stop-color="#3d6b4a"/>
+    </linearGradient>
+    <linearGradient id="moonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5e6c8"/>
+      <stop offset="100%" stop-color="#d4a84b"/>
+    </linearGradient>
+    <linearGradient id="starGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d4a84b"/>
+      <stop offset="100%" stop-color="#c49a3e"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="60" cy="60" r="56" fill="url(#bgGrad)"/>
+  
+  <!-- Decorative ring -->
+  <circle cx="60" cy="60" r="52" fill="none" stroke="#f5e6c8" stroke-width="0.5" opacity="0.3"/>
+  
+  <!-- Crescent moon -->
+  <path d="M75 35 
+           A 28 28 0 1 0 75 85 
+           A 22 22 0 1 1 75 35" 
+        fill="url(#moonGrad)"/>
+  
+  <!-- Star -->
+  <path d="M82 42 
+           L84.5 48.5 
+           L91.5 49 
+           L86 53.5 
+           L87.5 60.5 
+           L82 57 
+           L76.5 60.5 
+           L78 53.5 
+           L72.5 49 
+           L79.5 48.5 Z" 
+        fill="url(#starGrad)"/>
+  
+  <!-- Small decorative stars -->
+  <circle cx="88" cy="70" r="1.5" fill="#f5e6c8" opacity="0.6"/>
+  <circle cx="92" cy="58" r="1" fill="#f5e6c8" opacity="0.4"/>
+  <circle cx="70" cy="30" r="1.2" fill="#f5e6c8" opacity="0.5"/>
+</svg>

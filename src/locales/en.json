@@ -1,0 +1,97 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "user": "User",
+    "menu": "Menu",
+    "logout": "Logout",
+    "home": "Home",
+    "saving": "Saving...",
+    "active": "Active",
+    "inactive": "Inactive",
+    "total": "Total",
+    "title": "Title",
+    "category": "Category",
+    "spiritual": "Spiritual",
+    "mental": "Mental",
+    "physical": "Physical",
+    "bp": "BP",
+    "rewardBp": "Reward BP",
+    "day": "Day"
+  },
+  "app": {
+    "name": "Ramathani",
+    "tagline": "Your spiritual companion for Ramadan"
+  },
+  "login": {
+    "title": "Ramathani",
+    "description": "Your spiritual companion for Ramadan. Sign in to track your quests and grow in consistency.",
+    "continueWithGoogle": "Continue with Google"
+  },
+  "index": {
+    "todaysQuest": "Today's Quest",
+    "dayOfRamadan": "Day {{day}} of Ramadan — Stay consistent",
+    "barakahPoints": "Barakah Points",
+    "maqamOf": "Maqām of {{maqam}}",
+    "bpToNextMaqam": "{{count}} more Barakah Points to unlock the next Maqām",
+    "highestMaqam": "You have reached the highest Maqām. May Allah accept your efforts.",
+    "loadingQuests": "Loading quests...",
+    "spiritualQuest": "Spiritual Quest",
+    "mentalQuest": "Mental Quest",
+    "physicalQuest": "Physical Quest",
+    "todaysReminders": "Today's Reminders",
+    "loadingReminders": "Loading reminders...",
+    "noReminders": "No reminders available right now. Check back soon."
+  },
+  "questCard": {
+    "noQuests": "No more quests for today in this path."
+  },
+  "videoCard": {
+    "barakah": "Barakah",
+    "watched": "Watched"
+  },
+  "toast": {
+    "mabrook": "Mabrook!",
+    "maqamReached": "You have reached the Maqām of {{maqam}}. Keep going!",
+    "newStreak": "New streak record!",
+    "streakReached": "You have reached a {{count}}-day streak. Keep it up!"
+  },
+  "pathOfConsistency": {
+    "title": "Path of Consistency",
+    "subtitle": "Honour those who walk steadily — not the fastest, but the most devoted.",
+    "loadingLeaderboard": "Loading leaderboard...",
+    "noParticipants": "No participants yet. Be the first to walk the Path of Consistency.",
+    "traveler": "Traveler"
+  },
+  "admin": {
+    "login": "Admin Login",
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign in",
+    "invalidCredentials": "Invalid admin credentials.",
+    "dashboard": "Admin Dashboard",
+    "welcomeBack": "Welcome back",
+    "adminEnabled": "Admin mode enabled.",
+    "quests": "Quests",
+    "loadingQuests": "Loading quests...",
+    "noQuests": "No quests found.",
+    "addQuest": "Add Quest",
+    "questTitle": "Quest title",
+    "ramadanDayOptional": "Ramadan Day (optional)",
+    "videos": "Videos",
+    "loadingVideos": "Loading videos...",
+    "noVideos": "No videos found.",
+    "addVideo": "Add Video",
+    "videoTitle": "Video title",
+    "youtubeId": "YouTube ID",
+    "duration": "Duration (e.g. 7:30)",
+    "durationPlaceholder": "7:30"
+  },
+  "navbar": {
+    "maqam": "Maqām"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "Oops! Page not found",
+    "returnHome": "Return to Home"
+  }
+}

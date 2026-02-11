@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5f3ef"/>
+      <stop offset="100%" stop-color="#e8e4db"/>
+    </linearGradient>
+    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4a7c59"/>
+      <stop offset="100%" stop-color="#3d6b4a"/>
+    </linearGradient>
+    <linearGradient id="moonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5e6c8"/>
+      <stop offset="100%" stop-color="#d4a84b"/>
+    </linearGradient>
+    <linearGradient id="starGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d4a84b"/>
+      <stop offset="100%" stop-color="#c49a3e"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+  
+  <!-- Decorative pattern -->
+  <g opacity="0.03">
+    <circle cx="100" cy="100" r="200" fill="#4a7c59"/>
+    <circle cx="1100" cy="530" r="250" fill="#4a7c59"/>
+    <circle cx="1050" cy="80" r="150" fill="#d4a84b"/>
+    <circle cx="150" cy="550" r="180" fill="#d4a84b"/>
+  </g>
+  
+  <!-- Logo circle -->
+  <g transform="translate(500, 140)">
+    <circle cx="100" cy="100" r="90" fill="url(#logoGrad)"/>
+    <circle cx="100" cy="100" r="84" fill="none" stroke="#f5e6c8" stroke-width="1" opacity="0.3"/>
+    
+    <!-- Crescent moon -->
+    <path d="M120 55 
+             A 50 50 0 1 0 120 145 
+             A 40 40 0 1 1 120 55" 
+          fill="url(#moonGrad)"/>
+    
+    <!-- Star -->
+    <path d="M135 70 
+             L140 82 
+             L153 83 
+             L143 91 
+             L146 104 
+             L135 97 
+             L124 104 
+             L127 91 
+             L117 83 
+             L130 82 Z" 
+          fill="url(#starGrad)"/>
+    
+    <!-- Small decorative stars -->
+    <circle cx="148" cy="120" r="2.5" fill="#f5e6c8" opacity="0.6"/>
+    <circle cx="155" cy="100" r="1.5" fill="#f5e6c8" opacity="0.4"/>
+    <circle cx="110" cy="45" r="2" fill="#f5e6c8" opacity="0.5"/>
+  </g>
+  
+  <!-- Title -->
+  <text x="600" y="400" text-anchor="middle" font-family="Georgia, serif" font-size="72" font-weight="600" fill="#2d2a26">
+    Ramathani
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="600" y="460" text-anchor="middle" font-family="system-ui, sans-serif" font-size="28" fill="#6b6560">
+    Your Spiritual Journey Through Ramadan
+  </text>
+  
+  <!-- Features -->
+  <g font-family="system-ui, sans-serif" font-size="18" fill="#4a7c59">
+    <text x="380" y="530" text-anchor="middle">Daily Quests</text>
+    <text x="600" y="530" text-anchor="middle">Inspirational Videos</text>
+    <text x="820" y="530" text-anchor="middle">Track Your Progress</text>
+  </g>
+  
+  <!-- Dots between features -->
+  <circle cx="490" cy="525" r="3" fill="#d4a84b"/>
+  <circle cx="710" cy="525" r="3" fill="#d4a84b"/>
+</svg>

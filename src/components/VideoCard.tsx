@@ -1,4 +1,5 @@
 import { CheckCircle2, Play } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface VideoCardProps {
   id: string;
@@ -23,6 +24,7 @@ const VideoCard = ({
   thumbnail,
   delay = 0,
 }: VideoCardProps) => {
+  const { t } = useTranslation();
   const handleClick = () => {
     const isNowCompleted = !completed;
     onToggle(id, reward, isNowCompleted);
@@ -57,10 +59,10 @@ const VideoCard = ({
       <div className="p-4">
         <h4 className="font-display text-sm font-semibold text-foreground leading-snug">{title}</h4>
         <div className="mt-1 flex items-center justify-between">
-          <span className="text-xs text-primary font-medium inline-block">+{reward} Barakah</span>
+          <span className="text-xs text-primary font-medium inline-block">+{reward} {t("videoCard.barakah")}</span>
           {completed && (
             <span className="text-[11px] px-2 py-0.5 rounded-full bg-primary/10 text-primary font-medium">
-              Watched
+              {t("videoCard.watched")}
             </span>
           )}
         </div>

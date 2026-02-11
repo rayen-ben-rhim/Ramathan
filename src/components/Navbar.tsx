@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { Menu, Flame } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -9,6 +11,7 @@ interface NavbarProps {
 }
 
 const Navbar = ({ onMenuToggle }: NavbarProps) => {
+  const { t } = useTranslation();
   const { profile, user } = useAuth();
   const { toast } = useToast();
   const prevLongestRef = useRef<number | null>(null);
@@ -18,7 +21,7 @@ const Navbar = ({ onMenuToggle }: NavbarProps) => {
     user?.user_metadata?.full_name ??
     user?.user_metadata?.name ??
     user?.email?.split("@")[0] ??
-    "User";
+    t("common.user");
   const initial = displayName.charAt(0).toUpperCase();
   const avatarUrl = profile?.avatar_url ?? user?.user_metadata?.avatar_url ?? null;
   const maqam = profile?.current_maqam ?? "Ṣābir";
@@ -32,24 +35,28 @@ const Navbar = ({ onMenuToggle }: NavbarProps) => {
 
     if (prevLongest !== null && longest > prevLongest) {
       toast({
-        title: "New streak record!",
-        description: `You have reached a ${longest}-day streak. Keep it up!`,
+        title: t("toast.newStreak"),
+        description: t("toast.streakReached", { count: longest }),
       });
     }
 
     if (prevLongest !== longest) {
       prevLongestRef.current = longest;
     }
-  }, [profile?.longest_streak, toast]);
+  }, [profile?.longest_streak, toast, t]);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 h-16 border-b border-border/50 bg-card/80 backdrop-blur-md">
       <div className="h-full max-w-6xl mx-auto px-4 flex items-center justify-between">
         {/* Left: Logo */}
-        <div className="flex items-center gap-2">
-          <span className="text-xl">🌙</span>
+        <div className="flex items-center gap-2.5">
+          <img 
+            src="/logo.svg" 
+            alt="Ramathani" 
+            className="w-9 h-9 rounded-xl shadow-sm"
+          />
           <span className="text-xl font-display font-semibold text-foreground tracking-wide">
-            Ramathani
+            {t("app.name")}
           </span>
         </div>
 
@@ -63,7 +70,7 @@ const Navbar = ({ onMenuToggle }: NavbarProps) => {
           </Avatar>
           <div className="flex flex-col items-center">
             <span className="text-sm font-display font-medium text-foreground">{maqam}</span>
-            <span className="text-xs text-muted-foreground">Maqām {level}</span>
+            <span className="text-xs text-muted-foreground">{t("navbar.maqam")} {level}</span>
           </div>
           <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-accent/10 border border-accent/20">
             <Flame className="w-3.5 h-3.5 text-accent" />
@@ -72,12 +79,15 @@ const Navbar = ({ onMenuToggle }: NavbarProps) => {
         </div>
 
         {/* Right: Menu */}
-        <button
+        <div className="flex items-center gap-1">
+          <LanguageSwitcher />
+          <button
           onClick={onMenuToggle}
           className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-muted transition-colors"
         >
           <Menu className="w-5 h-5 text-foreground" />
         </button>
+        </div>
       </div>
     </nav>
   );
