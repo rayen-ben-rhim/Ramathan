@@ -25,15 +25,37 @@
   "login": {
     "title": "Ramathani",
     "description": "Your spiritual companion for Ramadan. Sign in to track your quests and grow in consistency.",
-    "continueWithGoogle": "Continue with Google"
+    "continueWithGoogle": "Continue with Google",
+    "oneTap": "One tap to get started."
+  },
+  "intro": {
+    "welcome": "Welcome to Ramathani",
+    "welcomeSubtitle": "Your spiritual companion for Ramadan",
+    "slide1Title": "Daily quests",
+    "slide1Description": "Complete spiritual, mental, and physical quests each day and earn Barakah Points.",
+    "slide2Title": "Level up & Maqāms",
+    "slide2Description": "Rise through levels and spiritual stations — from Ṣābir to Muqarrab — as you grow in consistency.",
+    "slide3Title": "Today's reminders",
+    "slide3Description": "Watch short inspirational videos and strengthen your connection throughout the month.",
+    "slide4Title": "Path of Consistency",
+    "slide4Description": "See your rank and honour others who walk the path with you.",
+    "getStarted": "Get started",
+    "next": "Next",
+    "skip": "Skip"
   },
   "index": {
     "todaysQuest": "Today's Quest",
     "dayOfRamadan": "Day {{day}} of Ramadan — Stay consistent",
+    "ramadanStartsIn": "Ramadan starts in {{count}} days — Prepare your heart",
+    "ramadanEnded": "Ramadan has ended — May your efforts be accepted",
+    "heroSubtitleFallback": "Your spiritual companion for Ramadan",
     "barakahPoints": "Barakah Points",
     "maqamOf": "Maqām of {{maqam}}",
     "bpToNextMaqam": "{{count}} more Barakah Points to unlock the next Maqām",
     "highestMaqam": "You have reached the highest Maqām. May Allah accept your efforts.",
+    "questsLockedTitle": "Quests are locked",
+    "countdownUntilRamadan": "{{count}} days until Ramadan",
+    "firstQuestFirstDay": "Your first quest will be available on the first day of Ramadan. Prepare your heart and intentions!",
     "loadingQuests": "Loading quests...",
     "spiritualQuest": "Spiritual Quest",
     "mentalQuest": "Mental Quest",
@@ -60,7 +82,11 @@
     "subtitle": "Honour those who walk steadily — not the fastest, but the most devoted.",
     "loadingLeaderboard": "Loading leaderboard...",
     "noParticipants": "No participants yet. Be the first to walk the Path of Consistency.",
-    "traveler": "Traveler"
+    "traveler": "Traveler",
+    "yourRank": "Your rank",
+    "rankNumber": "Rank {{rank}}",
+    "signInToSeeRank": "Sign in to see your rank",
+    "completeQuestToAppear": "Complete a quest to appear on the leaderboard."
   },
   "admin": {
     "login": "Admin Login",

@@ -11,8 +11,9 @@ import { useQuests } from "@/hooks/useQuests";
 import type { QuestItem } from "@/components/QuestCard";
 import { useToast } from "@/components/ui/use-toast";
 import { useVideos } from "@/hooks/useVideos";
-
-const BP_PER_LEVEL = 500;
+import { getRamadanDay } from "@/lib/ramadan";
+import { totalBPForLevel } from "@/lib/leveling";
+import { Lock } from "lucide-react";
 
 const Index = () => {
   const { t } = useTranslation();
@@ -39,8 +40,8 @@ const Index = () => {
   };
 
   const { startLevel, nextMaqamStartLevel } = getMaqamBand(currentLevel);
-  const bandStartBp = (startLevel - 1) * BP_PER_LEVEL;
-  const bandEndBp = nextMaqamStartLevel ? (nextMaqamStartLevel - 1) * BP_PER_LEVEL : null;
+  const bandStartBp = totalBPForLevel(startLevel);
+  const bandEndBp = nextMaqamStartLevel ? totalBPForLevel(nextMaqamStartLevel) : null;
 
   const progress =
     bandEndBp !== null && bandEndBp > bandStartBp
@@ -76,6 +77,16 @@ const Index = () => {
   const toQuestItems = (q: { id: string; title: string; reward_bp: number }[]): QuestItem[] =>
     q.map(({ id, title, reward_bp }) => ({ id, title, reward: reward_bp }));
 
+  const ramadanState = getRamadanDay();
+  const heroSubtitle =
+    ramadanState === null
+      ? t("index.heroSubtitleFallback")
+      : "day" in ramadanState
+        ? t("index.dayOfRamadan", { day: ramadanState.day })
+        : "before" in ramadanState
+          ? t("index.ramadanStartsIn", { count: ramadanState.before })
+          : t("index.ramadanEnded");
+
   return (
     <div className="min-h-screen bg-background grid-texture">
       <Navbar onMenuToggle={() => setMenuOpen(true)} />
@@ -92,7 +103,7 @@ const Index = () => {
             {t("index.todaysQuest")}
           </h1>
           <p className="text-muted-foreground font-body text-sm sm:text-base animate-fade-in-up" style={{ animationDelay: "100ms" }}>
-            {t("index.dayOfRamadan", { day: 12 })}
+            {heroSubtitle}
           </p>
         </div>
       </div>
@@ -125,7 +136,22 @@ const Index = () => {
 
       {/* Quest Grid */}
       <div className="max-w-6xl mx-auto px-4 py-10">
-        {questsLoading ? (
+        {ramadanState !== null && "before" in ramadanState ? (
+          <div className="rounded-2xl border border-border/50 bg-card/80 backdrop-blur-sm p-8 sm:p-10 shadow-sm animate-fade-in-up text-center">
+            <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-muted border border-border/50 mb-5">
+              <Lock className="w-7 h-7 text-muted-foreground" />
+            </div>
+            <h2 className="text-xl font-display font-semibold text-foreground mb-2">
+              {t("index.questsLockedTitle")}
+            </h2>
+            <p className="text-2xl sm:text-3xl font-display font-bold text-primary mb-4">
+              {t("index.countdownUntilRamadan", { count: ramadanState.before })}
+            </p>
+            <p className="text-muted-foreground font-body text-sm sm:text-base max-w-md mx-auto">
+              {t("index.firstQuestFirstDay")}
+            </p>
+          </div>
+        ) : questsLoading ? (
           <p className="font-body text-muted-foreground text-center py-8">{t("index.loadingQuests")}</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -161,35 +187,37 @@ const Index = () => {
       </div>
 
       {/* Videos Section */}
-      <div className="max-w-6xl mx-auto px-4 pb-16">
-        <h2 className="text-2xl font-display font-semibold text-foreground mb-6 animate-fade-in-up" style={{ animationDelay: "600ms" }}>
-          {t("index.todaysReminders")}
-        </h2>
-        {videosLoading ? (
-          <p className="font-body text-muted-foreground text-center py-8">{t("index.loadingReminders")}</p>
-        ) : videos.length === 0 ? (
-          <p className="font-body text-muted-foreground text-center py-8">
-            {t("index.noReminders")}
-          </p>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {videos.map((video, i) => (
-              <VideoCard
-                key={video.id}
-                id={video.id}
-                title={video.title}
-                duration={video.duration}
-                reward={video.reward_bp}
-                youtubeId={video.youtube_id}
-                thumbnail={`https://img.youtube.com/vi/${video.youtube_id}/hqdefault.jpg`}
-                completed={completedVideoIds.has(video.id)}
-                onToggle={toggleVideo}
-                delay={700 + i * 100}
-              />
-            ))}
-          </div>
-        )}
-      </div>
+      {!(ramadanState !== null && "before" in ramadanState) && (
+        <div className="max-w-6xl mx-auto px-4 pb-16">
+          <h2 className="text-2xl font-display font-semibold text-foreground mb-6 animate-fade-in-up" style={{ animationDelay: "600ms" }}>
+            {t("index.todaysReminders")}
+          </h2>
+          {videosLoading ? (
+            <p className="font-body text-muted-foreground text-center py-8">{t("index.loadingReminders")}</p>
+          ) : videos.length === 0 ? (
+            <p className="font-body text-muted-foreground text-center py-8">
+              {t("index.noReminders")}
+            </p>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {videos.map((video, i) => (
+                <VideoCard
+                  key={video.id}
+                  id={video.id}
+                  title={video.title}
+                  duration={video.duration}
+                  reward={video.reward_bp}
+                  youtubeId={video.youtube_id}
+                  thumbnail={`https://img.youtube.com/vi/${video.youtube_id}/hqdefault.jpg`}
+                  completed={completedVideoIds.has(video.id)}
+                  onToggle={toggleVideo}
+                  delay={700 + i * 100}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Footer */}
       <footer className="border-t border-border/50 py-8 text-center">

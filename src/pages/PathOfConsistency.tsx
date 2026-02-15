@@ -3,7 +3,8 @@ import { useTranslation } from "react-i18next";
 import Navbar from "@/components/Navbar";
 import SideMenu from "@/components/SideMenu";
 import { Flame, Crown, Medal, Award } from "lucide-react";
-import { useLeaderboard } from "@/hooks/useLeaderboard";
+import { useAuth } from "@/contexts/AuthContext";
+import { useLeaderboard, useMyLeaderboardRank } from "@/hooks/useLeaderboard";
 
 const getRankIcon = (rank: number) => {
   if (rank === 1) return <Crown className="w-5 h-5 text-accent" />;
@@ -15,7 +16,9 @@ const getRankIcon = (rank: number) => {
 const PathOfConsistency = () => {
   const { t } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
-  const { entries, loading } = useLeaderboard();
+  const { user } = useAuth();
+  const { entries, loading } = useLeaderboard(10);
+  const { rank: myRank, entry: myEntry, loading: myRankLoading } = useMyLeaderboardRank(user?.id);
 
   const leaderboardData = entries.map((entry, index) => ({
     rank: index + 1,
@@ -82,40 +85,88 @@ const PathOfConsistency = () => {
               })}
             </div>
 
-            {/* Full List */}
+            {/* Top 10 List */}
             <div className="space-y-2">
-              {leaderboardData.map((user, i) => (
+              {leaderboardData.map((listUser, i) => (
                 <div
-                  key={user.rank}
+                  key={listUser.rank}
                   className="flex items-center gap-4 bg-card rounded-xl border border-border/50 px-4 py-3 shadow-sm animate-fade-in-up"
                   style={{ animationDelay: `${250 + i * 50}ms` }}
                 >
-                  <div className="w-8 flex justify-center">{getRankIcon(user.rank)}</div>
+                  <div className="w-8 flex justify-center">{getRankIcon(listUser.rank)}</div>
 
                   <div className="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
                     <span className="text-sm font-display font-semibold text-primary">
-                      {user.name.charAt(0)}
+                      {listUser.name.charAt(0)}
                     </span>
                   </div>
 
                   <div className="flex-1 min-w-0">
-                    <p className="font-display text-sm font-semibold text-foreground truncate">{user.name}</p>
+                    <p className="font-display text-sm font-semibold text-foreground truncate">{listUser.name}</p>
                     <p className="text-xs text-muted-foreground font-body">
-                      {user.title} · {t("navbar.maqam")} {user.level}
+                      {listUser.title} · {t("navbar.maqam")} {listUser.level}
                     </p>
                   </div>
 
                   <div className="flex items-center gap-1 px-2 py-1 rounded-full bg-accent/10 border border-accent/20 shrink-0">
                     <Flame className="w-3 h-3 text-accent" />
-                    <span className="text-xs font-medium text-accent-foreground">{user.streak}</span>
+                    <span className="text-xs font-medium text-accent-foreground">{listUser.streak}</span>
                   </div>
 
                   <div className="text-right shrink-0 hidden sm:block">
-                    <span className="text-sm font-display font-semibold text-foreground">{user.bp}</span>
+                    <span className="text-sm font-display font-semibold text-foreground">{listUser.bp}</span>
                     <span className="text-xs text-muted-foreground font-body ml-1">{t("common.bp")}</span>
                   </div>
                 </div>
               ))}
+            </div>
+
+            {/* Your rank */}
+            <div className="mt-10 pt-8 border-t border-border/50 animate-fade-in-up" style={{ animationDelay: "400ms" }}>
+              <h2 className="text-lg font-display font-semibold text-foreground mb-4">
+                {t("pathOfConsistency.yourRank")}
+              </h2>
+              {!user ? (
+                <p className="text-sm font-body text-muted-foreground">
+                  {t("pathOfConsistency.signInToSeeRank")}
+                </p>
+              ) : myRankLoading ? (
+                <p className="text-sm font-body text-muted-foreground">
+                  {t("pathOfConsistency.loadingLeaderboard")}
+                </p>
+              ) : myRank !== null && myEntry ? (
+                <>
+                  <p className="text-sm font-body text-muted-foreground mb-3">
+                    {myEntry.display_name} — {t("pathOfConsistency.rankNumber", { rank: myRank })}
+                  </p>
+                  <div className="flex items-center gap-4 bg-card rounded-xl border border-primary/30 px-4 py-3 shadow-sm">
+                    <div className="w-8 flex justify-center">{getRankIcon(myRank)}</div>
+                    <div className="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+                      <span className="text-sm font-display font-semibold text-primary">
+                        {myEntry.display_name.charAt(0)}
+                      </span>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-display text-sm font-semibold text-foreground truncate">{myEntry.display_name}</p>
+                      <p className="text-xs text-muted-foreground font-body">
+                        {(myEntry.current_maqam ?? t("pathOfConsistency.traveler"))} · {t("navbar.maqam")} {myEntry.current_level}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-1 px-2 py-1 rounded-full bg-accent/10 border border-accent/20 shrink-0">
+                      <Flame className="w-3 h-3 text-accent" />
+                      <span className="text-xs font-medium text-accent-foreground">{myEntry.current_streak}</span>
+                    </div>
+                    <div className="text-right shrink-0 hidden sm:block">
+                      <span className="text-sm font-display font-semibold text-foreground">{myEntry.total_bp}</span>
+                      <span className="text-xs text-muted-foreground font-body ml-1">{t("common.bp")}</span>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <p className="text-sm font-body text-muted-foreground">
+                  {t("pathOfConsistency.completeQuestToAppear")}
+                </p>
+              )}
             </div>
           </>
         )}

@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import AdminRoute from "@/components/AdminRoute";
+import IntroGate from "@/components/IntroGate";
 import Index from "./pages/Index";
 import PathOfConsistency from "./pages/PathOfConsistency";
 import Admin from "./pages/Admin";
@@ -28,7 +30,9 @@ const App = () => (
               path="/"
               element={
                 <ProtectedRoute>
-                  <Index />
+                  <IntroGate>
+                    <Index />
+                  </IntroGate>
                 </ProtectedRoute>
               }
             />
@@ -36,11 +40,20 @@ const App = () => (
               path="/path-of-consistency"
               element={
                 <ProtectedRoute>
-                  <PathOfConsistency />
+                  <IntroGate>
+                    <PathOfConsistency />
+                  </IntroGate>
                 </ProtectedRoute>
               }
             />
-            <Route path="/admin" element={<Admin />} />
+            <Route
+              path="/admin"
+              element={
+                <AdminRoute>
+                  <Admin />
+                </AdminRoute>
+              }
+            />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

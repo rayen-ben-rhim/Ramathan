@@ -20,12 +20,15 @@ export interface Profile {
   longest_streak: number;
   last_activity_date: string | null;
   created_at: string;
+  is_admin: boolean;
+  has_completed_intro?: boolean;
 }
 
 interface AuthContextValue {
   user: User | null;
   profile: Profile | null;
   loading: boolean;
+  isAdmin: boolean;
   signInWithGoogle: () => Promise<void>;
   signOut: () => Promise<void>;
   refreshProfile: () => Promise<void>;
@@ -152,6 +155,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     user,
     profile,
     loading,
+    isAdmin: profile?.is_admin ?? false,
     signInWithGoogle,
     signOut,
     refreshProfile,

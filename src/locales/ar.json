@@ -25,15 +25,37 @@
   "login": {
     "title": "رمضاني",
     "description": "رفيقك الروحي في رمضان. سجّل الدخول لتتبع مهامك وتنمو في الثبات.",
-    "continueWithGoogle": "المتابعة عبر Google"
+    "continueWithGoogle": "المتابعة عبر Google",
+    "oneTap": "ضغطة واحدة للبدء."
+  },
+  "intro": {
+    "welcome": "مرحباً بك في رمضاني",
+    "welcomeSubtitle": "رفيقك الروحي في رمضان",
+    "slide1Title": "مهام يومية",
+    "slide1Description": "أنجز مهام روحية وذهنية وبدنية كل يوم واكسب نقاط البركة.",
+    "slide2Title": "المستويات والمقامات",
+    "slide2Description": "ترقّ عبر المستويات والمقامات — من الصابر إلى المقرب — كلما نموت في الثبات.",
+    "slide3Title": "تذكيرات اليوم",
+    "slide3Description": "شاهد فيديوهات قصيرة ملهمة وثبّت صلتك طوال الشهر.",
+    "slide4Title": "درب الثبات",
+    "slide4Description": "اطلع على ترتيبك وأكرم من يمشي الدرب معك.",
+    "getStarted": "ابدأ",
+    "next": "التالي",
+    "skip": "تخطي"
   },
   "index": {
     "todaysQuest": "مهمة اليوم",
     "dayOfRamadan": "اليوم {{day}} من رمضان — ثابر واستمر",
+    "ramadanStartsIn": "رمضان يبدأ بعد {{count}} أيام — هيّئ قلبك",
+    "ramadanEnded": "انتهى رمضان — تقبّل الله منك",
+    "heroSubtitleFallback": "رفيقك الروحي في رمضان",
     "barakahPoints": "نقاط البركة",
     "maqamOf": "مقام {{maqam}}",
     "bpToNextMaqam": "{{count}} نقطة بركة إضافية لفتح المقام التالي",
     "highestMaqam": "لقد وصلت إلى أعلى المقامات. تقبّل الله منك.",
+    "questsLockedTitle": "المهام مقفلة",
+    "countdownUntilRamadan": "{{count}} أيام حتى رمضان",
+    "firstQuestFirstDay": "ستكون مهمتك الأولى متاحة في أول يوم من رمضان. هيّئ قلبك ونيّتك!",
     "loadingQuests": "جاري تحميل المهام...",
     "spiritualQuest": "المهمة الروحية",
     "mentalQuest": "المهمة الذهنية",
@@ -60,7 +82,11 @@
     "subtitle": "إكرام من يمشون بثبات — ليس الأسرع، بل الأكثر إخلاصاً.",
     "loadingLeaderboard": "جاري تحميل لوحة المتصدرين...",
     "noParticipants": "لا مشاركين بعد. كن أول من يمشي درب الثبات.",
-    "traveler": "المسافر"
+    "traveler": "المسافر",
+    "yourRank": "ترتيبك",
+    "rankNumber": "الترتيب {{rank}}",
+    "signInToSeeRank": "سجّل الدخول لمعرفة ترتيبك",
+    "completeQuestToAppear": "أنجز مهمة لتظهر في لوحة المتصدرين."
   },
   "admin": {
     "login": "تسجيل دخول الأدمن",

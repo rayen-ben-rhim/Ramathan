@@ -1,20 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useToast } from "@/components/ui/use-toast";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { useAuth } from "@/contexts/AuthContext";
 import { useAdminQuests } from "@/hooks/useAdminQuests";
 import { useAdminVideos } from "@/hooks/useAdminVideos";
 
-const ADMIN_EMAIL = "admin@ramathani.app";
-const ADMIN_PASSWORD = "ramathani-admin-2025";
-
 // Icons as components
-const ShieldIcon = () => (
-  <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
-  </svg>
-);
-
 const QuestsIcon = () => (
   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
@@ -48,41 +39,10 @@ const StarIcon = () => (
 
 const Admin = () => {
   const { t } = useTranslation();
-  const { toast } = useToast();
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const { signOut } = useAuth();
   const [activeTab, setActiveTab] = useState<"quests" | "videos">("quests");
   const [showQuestForm, setShowQuestForm] = useState(false);
   const [showVideoForm, setShowVideoForm] = useState(false);
-
-  useEffect(() => {
-    const stored = localStorage.getItem("ramathani_admin");
-    if (stored === "1") {
-      setIsAdmin(true);
-    }
-  }, []);
-
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
-      setIsAdmin(true);
-      localStorage.setItem("ramathani_admin", "1");
-      setError(null);
-      toast({
-        title: t("admin.welcomeBack"),
-        description: t("admin.adminEnabled"),
-      });
-    } else {
-      setError(t("admin.invalidCredentials"));
-    }
-  };
-
-  const handleLogout = () => {
-    setIsAdmin(false);
-    localStorage.removeItem("ramathani_admin");
-  };
 
   const {
     quests,
@@ -107,83 +67,6 @@ const Admin = () => {
   const activeVideos = videos.filter((v) => v.is_active).length;
   const totalBP = quests.reduce((sum, q) => sum + q.reward_bp, 0) + videos.reduce((sum, v) => sum + v.reward_bp, 0);
 
-  if (!isAdmin) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-sage-light/30 p-4">
-        <div className="absolute inset-0 grid-texture opacity-30" />
-        <div className="relative w-full max-w-md">
-          {/* Decorative elements */}
-          <div className="absolute -top-20 -left-20 w-40 h-40 bg-primary/5 rounded-full blur-3xl" />
-          <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-gold/10 rounded-full blur-3xl" />
-          
-          <div className="relative rounded-3xl border border-border/50 bg-card/80 backdrop-blur-sm p-8 shadow-xl">
-            {/* Header */}
-            <div className="flex flex-col items-center mb-8">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center mb-4 shadow-lg">
-                <ShieldIcon />
-              </div>
-              <h1 className="text-2xl font-display font-semibold text-foreground">
-                {t("admin.login")}
-              </h1>
-              <p className="text-sm text-muted-foreground mt-1">
-                Ramathani Admin Portal
-              </p>
-            </div>
-            
-            <form onSubmit={handleLogin} className="space-y-5">
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-foreground flex items-center gap-2">
-                  <svg className="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                  {t("admin.email")}
-                </label>
-                <input
-                  type="email"
-                  className="w-full rounded-xl border border-input bg-background/50 px-4 py-3 text-sm outline-none transition-all duration-200 focus:ring-2 focus:ring-primary focus:border-primary placeholder:text-muted-foreground/50"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="admin@example.com"
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-foreground flex items-center gap-2">
-                  <svg className="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                  </svg>
-                  {t("admin.password")}
-                </label>
-                <input
-                  type="password"
-                  className="w-full rounded-xl border border-input bg-background/50 px-4 py-3 text-sm outline-none transition-all duration-200 focus:ring-2 focus:ring-primary focus:border-primary placeholder:text-muted-foreground/50"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                />
-              </div>
-              
-              {error && (
-                <div className="flex items-center gap-2 text-sm text-destructive bg-destructive/10 px-4 py-3 rounded-xl">
-                  <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                  </svg>
-                  {error}
-                </div>
-              )}
-              
-              <button
-                type="submit"
-                className="w-full rounded-xl bg-gradient-to-r from-primary to-primary/90 px-4 py-3.5 text-sm font-semibold text-primary-foreground hover:opacity-90 transition-all duration-200 shadow-lg shadow-primary/20"
-              >
-                {t("admin.signIn")}
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-sage-light/20">
       {/* Header */}
@@ -204,7 +87,7 @@ const Admin = () => {
             <div className="flex items-center gap-3">
               <LanguageSwitcher />
               <button
-                onClick={handleLogout}
+                onClick={() => signOut()}
                 className="flex items-center gap-2 rounded-xl border border-border/50 bg-background/50 px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all duration-200"
               >
                 <LogoutIcon />
